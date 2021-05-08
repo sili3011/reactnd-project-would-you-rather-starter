@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Navbar, Nav } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { BsFillPlusCircleFill, BsPeopleCircle, BsReverseLayoutTextSidebarReverse } from 'react-icons/bs'
+import { BsHouseDoor, BsPlusCircle, BsPeopleCircle, BsReverseLayoutTextSidebarReverse } from 'react-icons/bs'
 import { logoutUser } from '../actions/loggedInUser'
 
 class Navigation extends Component{
@@ -16,12 +16,16 @@ class Navigation extends Component{
                 <Navbar.Brand href='/'>Would you rather ... ?</Navbar.Brand>
                 <Navbar style={{width: '100%', padding: 0}}>
                     <Nav className='mr-auto'>
-                        <Nav.Link href="#features" className='align-icon-text'>
-                            <BsReverseLayoutTextSidebarReverse className='icon'/>
-                            Timeline
+                        <Nav.Link href="#home" className='align-icon-text'>
+                            <BsHouseDoor className='icon'/>
+                            Home
                         </Nav.Link>
-                        <Nav.Link href="#pricing" className='align-icon-text'>
-                            <BsFillPlusCircleFill className='icon'/>
+                        <Nav.Link href="#leaderboard" className='align-icon-text'>
+                            <BsReverseLayoutTextSidebarReverse className='icon'/>
+                            Leaderboard
+                        </Nav.Link>
+                        <Nav.Link href="#new" className='align-icon-text'>
+                            <BsPlusCircle className='icon'/>
                             New question
                         </Nav.Link>
                     </Nav>

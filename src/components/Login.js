@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { loginUser } from '../actions/loggedInUser.js'
-import { Modal, Button } from 'react-bootstrap'
+import { Modal, Button, Alert } from 'react-bootstrap'
 
 class Login extends Component {
 
@@ -30,7 +30,7 @@ class Login extends Component {
     }
 
     render() {
-        const { showWarning } = this.state;
+        const { input, showWarning } = this.state;
         return (
             <Modal show={this.props.showModal}
                 size="lg"
@@ -40,14 +40,18 @@ class Login extends Component {
                 >
                 <Modal.Header>
                     <Modal.Title id="contained-modal-title-vcenter">
-                        Login
+                        <span>Welcome to <b>Would you rather ... ?</b> Who are you?</span>
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body style={{alignSelf: 'center', width: '100%'}}>
-                    { !showWarning ? null : <p style={{color: 'red'}}>Sorry! No escape! You gotta login first ;)</p> }
+                    { !showWarning ? null :
+                        <Alert variant={'danger'}>
+                            Sorry! No escape! You gotta <b>login</b> first ;)
+                        </Alert>
+                    }
                     <div>
-                        <input placeholder="Your user name" value={this.state.input} onChange={this.handleChange} style={{margin: '2em', width: '75%'}}/>
-                        <Button variant="primary" onClick={this.handleLogin}>Login</Button>
+                        <input placeholder="Your user name" value={input} onChange={this.handleChange} style={{margin: '2em', width: '75%'}}/>
+                        <Button variant="secondary" disabled={input === ''} onClick={this.handleLogin}>Login</Button>
                     </div>
                 </Modal.Body>
             </Modal>

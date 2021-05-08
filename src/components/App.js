@@ -5,6 +5,7 @@ import LoadingBar from 'react-redux-loading'
 import Login from './Login' 
 import Navigation from './Navigation'
 import { handleInitialData } from '../actions/shared'
+import Questions from './Questions'
 
 class App extends Component {
 
@@ -13,14 +14,15 @@ class App extends Component {
   }
 
   render() {
+    const { loggedIn } = this.props;
+
     return (
         <Router>
           <Fragment>
             <LoadingBar />
-            <div>
               <Navigation />
               <Login showModal={!this.props.loggedIn}/>
-            </div>
+              { loggedIn ? <Questions /> : null}
           </Fragment>
         </Router>
       );
