@@ -19,7 +19,10 @@
         "react"
     ],
     "rules": {
+        "no-unused-vars": ["warn"],
         "react/prop-types": 0,
-        "react/no-unused-prop-types": 0
-    }
+        "react/no-unused-prop-types": ["warn"],
+        "react-redux/prefer-separate-component-file": 0
+    },
+    "parser": "babel-eslint"
 }

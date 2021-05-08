@@ -1,10 +1,16 @@
 import React, { Component, Fragment } from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router } from 'react-router-dom'
 import { connect } from 'react-redux'
 import LoadingBar from 'react-redux-loading'
 import Login from './Login' 
+import Navigation from './Navigation'
+import { handleInitialData } from '../actions/shared'
 
-class App extends Component{
+class App extends Component {
+
+  componentDidMount() {
+    this.props.dispatch(handleInitialData())
+  }
 
   render() {
     return (
@@ -12,9 +18,8 @@ class App extends Component{
           <Fragment>
             <LoadingBar />
             <div>
-              { this.props.loggedInUser ? null : 
-                <Route path='/' exact component={Login} />
-              }
+              <Navigation />
+              <Login showModal={!this.props.loggedIn}/>
             </div>
           </Fragment>
         </Router>
