@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Card, Alert, Row, Col, Form, Button } from 'react-bootstrap'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Redirect } from 'react-router-dom'
 import { addAnswer } from '../actions/questions'
 import { OPTION_NONE, OPTION_ONE, OPTION_TWO } from '../utils/ENUMS'
 
 class Question extends Component {
 
     state = {
-        selected: OPTION_NONE
+        selected: OPTION_NONE,
+        toHome: false
     }
 
     componentDidMount() {
@@ -22,6 +23,9 @@ class Question extends Component {
         const {dispatch, id, user} = this.props;
         e.preventDefault();
         dispatch(addAnswer({id, answer: this.state.selected, user}));
+        this.setState(() => ({
+            toHome: true
+        }));
     }
 
     onSelect = (e, input) => {
@@ -33,6 +37,10 @@ class Question extends Component {
     render() {
 
         const { question, id } = this.props;
+
+        if(this.state.toHome === true) {
+            return <Redirect to='/' />
+        }
 
         return (
             
