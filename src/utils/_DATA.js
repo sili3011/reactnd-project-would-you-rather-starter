@@ -4,7 +4,7 @@ let users = {
   sarahedo: {
     id: 'sarahedo',
     name: 'Sarah Edo',
-    avatarURL: '',
+    avatarURL: 'https://st2.depositphotos.com/3557671/11719/v/950/depositphotos_117198170-stock-illustration-girl-icon-flat-single-avatarpeople.jpg',
     answers: {
       "8xf0y6ziyjabvozdd253nd": 'optionOne',
       "6ni6ok3ym7mf1p33lnez": 'optionTwo',
@@ -16,7 +16,7 @@ let users = {
   tylermcginnis: {
     id: 'tylermcginnis',
     name: 'Tyler McGinnis',
-    avatarURL: '',
+    avatarURL: 'https://previews.123rf.com/images/pandavector/pandavector1607/pandavector160700189/60027259-boy-icon-flat-single-avatar-people-icon-from-the-big-avatar-collection-stock-vector.jpg',
     answers: {
       "vthrdm985a262al8qx3do": 'optionOne',
       "xj352vofupe1dqz9emx13r": 'optionTwo',
@@ -26,7 +26,7 @@ let users = {
   johndoe: {
     id: 'johndoe',
     name: 'John Doe',
-    avatarURL: '',
+    avatarURL: 'https://st2.depositphotos.com/3557671/11719/v/950/depositphotos_117194726-stock-illustration-businessman-icon-flat-single-avatarpeople.jpg',
     answers: {
       "xj352vofupe1dqz9emx13r": 'optionOne',
       "vthrdm985a262al8qx3do": 'optionTwo',

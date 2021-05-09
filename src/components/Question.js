@@ -4,6 +4,7 @@ import { Card, Alert, Row, Col, Form, Button } from 'react-bootstrap'
 import { withRouter, Redirect } from 'react-router-dom'
 import { addAnswer } from '../actions/questions'
 import { OPTION_NONE, OPTION_ONE, OPTION_TWO } from '../utils/ENUMS'
+import { checkURL } from '../utils/helpers'
 
 class Question extends Component {
 
@@ -22,7 +23,7 @@ class Question extends Component {
     onSubmit = (e) => {
         const {dispatch, id, user} = this.props;
         e.preventDefault();
-        dispatch(addAnswer({id, answer: this.state.selected, user}));
+        dispatch(addAnswer({id, answer: this.state.selected, user: user.id}));
         this.setState(() => ({
             toHome: true
         }));
@@ -36,18 +37,20 @@ class Question extends Component {
 
     render() {
 
-        const { question, id } = this.props;
+        const { question, id, users } = this.props;
 
         if(this.state.toHome === true) {
             return <Redirect to='/' />
         }
 
         return (
-            
             <div>
                 { question !== undefined ?
                     <div style={{margin: '2rem'}}>
-                        <h1>Would you rather ... ?</h1>
+                        <h1>
+                            <img src={checkURL(users[question.author].avatarURL)} width='70px' style={{borderRadius: '35px', marginRight: '10px'}}/>
+                            {question.author} asked: <b>Would you rather ... ?</b>
+                        </h1>
                         <Row style={{margin: '2rem'}}>
                             <Col onClick={(e) => this.onSelect(e, OPTION_ONE)}>
                                 <Card>
@@ -75,13 +78,14 @@ class Question extends Component {
     }
 }
 
-function mapStateToProps({questions, loggedInUser}, ownProps) {
+function mapStateToProps({questions, loggedInUser, users}, ownProps) {
     const id = ownProps.match.params.id;
     const question = questions[id]
     return {
         question: question,
         id: id,
-        user: loggedInUser,
+        user: users[loggedInUser],
+        users: users,
         answered: question.optionOne.votes.includes(loggedInUser) ? OPTION_ONE : question.optionTwo.votes.includes(loggedInUser) ? OPTION_TWO : OPTION_NONE
     }
 }

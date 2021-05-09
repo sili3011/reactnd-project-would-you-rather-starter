@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Table } from 'react-bootstrap'
+import { checkURL } from '../utils/helpers'
 
 class Leaderboard extends Component {
+
   render() {
     const { users } = this.props;
     return (
@@ -20,11 +22,11 @@ class Leaderboard extends Component {
             <tbody>
                 {users.map(u => (
                     <tr key={u.id}>
-                        <td>{users.indexOf(u) + 1}</td>
-                        <td>{u.name}</td>
-                        <td>{Object.values(u.answers).length}</td>
-                        <td>{u.questions.length}</td>
-                        <td>{Object.values(u.answers).length + u.questions.length}</td>
+                        <td className='centerInTable'>{users.indexOf(u) + 1}</td>
+                        <td><img src={checkURL(u.avatarURL)} width='50px' style={{borderRadius: '25px'}}/> {u.name}</td>
+                        <td className='centerInTable'>{Object.values(u.answers).length}</td>
+                        <td className='centerInTable'>{u.questions.length}</td>
+                        <td className='centerInTable'>{Object.values(u.answers).length + u.questions.length}</td>
                     </tr>
                 ))}
             </tbody>

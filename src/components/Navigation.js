@@ -32,7 +32,11 @@ class Navigation extends Component{
                     </Nav>
                     <Nav style={{position: 'absolute', right: '0'}}>
                         <Nav.Link className='align-icon-text' onClick={this.onLogout}>
-                            <BsPeopleCircle className='icon'/>{loggedInUser ? `Logout ${loggedInUser}` : 'Login'}
+                            {loggedInUser && loggedInUser.avatarURL ?
+                                <img src={loggedInUser.avatarURL} width='40px' style={{borderRadius: '20px', marginRight: '5px'}}/> :
+                                <BsPeopleCircle className='icon'/>
+                            }
+                            {loggedInUser ? `Logout ${loggedInUser.name}` : 'Login'}
                         </Nav.Link>  
                     </Nav>
                 </Navbar>
@@ -41,9 +45,9 @@ class Navigation extends Component{
     }
 }
 
-function mapStateToProps({loggedInUser}) {
+function mapStateToProps({loggedInUser, users}) {
   return {
-    loggedInUser: loggedInUser
+    loggedInUser: users[loggedInUser]
   }
 }
 
