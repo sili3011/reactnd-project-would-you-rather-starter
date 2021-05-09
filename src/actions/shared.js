@@ -1,5 +1,5 @@
-import { receiveUsers } from './users'
-import { receiveQuestions } from './questions'
+import { receiveUsers, addAnswer as addAnswerToUser } from './users'
+import { receiveQuestions, addAnswer as addAnswerToQuestion } from './questions'
 import { getInitialData } from '../utils/api'
 
 export function handleInitialData() {
@@ -8,6 +8,14 @@ export function handleInitialData() {
             dispatch(receiveUsers(users));
             dispatch(receiveQuestions(questions));
         })
+        return;
+    }
+}
+
+export function addAnswer({id, answer, user}) {
+    return (dispatch) => {
+        dispatch(addAnswerToQuestion({id, answer, user}));
+        dispatch(addAnswerToUser({id, answer, user}));
         return;
     }
 }

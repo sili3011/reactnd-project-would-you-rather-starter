@@ -3,12 +3,20 @@ import { connect } from 'react-redux'
 import { Card, Alert, Row, Col, Form, Button } from 'react-bootstrap'
 import { withRouter } from 'react-router-dom'
 import { addAnswer } from '../actions/questions'
+import { OPTION_NONE, OPTION_ONE, OPTION_TWO } from '../utils/ENUMS'
 
 class Question extends Component {
 
     state = {
-        selected: 0
+        selected: OPTION_NONE
     }
+
+    componentDidMount() {
+        this.setState(() => ({
+            selected: this.props.answered
+        }));
+    }
+
 
     onSubmit = (e) => {
         const {dispatch, id, user} = this.props;
@@ -33,18 +41,18 @@ class Question extends Component {
                     <div style={{margin: '2rem'}}>
                         <h1>Would you rather ... ?</h1>
                         <Row style={{margin: '2rem'}}>
-                            <Col>
+                            <Col onClick={(e) => this.onSelect(e, OPTION_ONE)}>
                                 <Card>
                                     <Card.Body>
-                                        <Form.Check label={question.optionOne.text} name="group1" type='radio' onClick={(e) => this.onSelect(e, 1)}/>
+                                        <Form.Check label={question.optionOne.text} name="group1" type='radio' checked={this.state.selected === OPTION_ONE} readOnly/>
                                     </Card.Body>
                                 </Card>
                             </Col>
                             <Col md='auto' style={{display: 'flex', alignItems: 'center'}}>vs</Col>
                             <Col>
-                                <Card>
+                                <Card onClick={(e) => this.onSelect(e, OPTION_TWO)}>
                                     <Card.Body>
-                                        <Form.Check label={question.optionOne.text} name="group1" type='radio' onClick={(e) => this.onSelect(e, 2)}/>
+                                        <Form.Check label={question.optionTwo.text} name="group1" type='radio' checked={this.state.selected === OPTION_TWO} readOnly/>
                                     </Card.Body>
                                 </Card>
                             </Col>
@@ -61,10 +69,12 @@ class Question extends Component {
 
 function mapStateToProps({questions, loggedInUser}, ownProps) {
     const id = ownProps.match.params.id;
+    const question = questions[id]
     return {
-        question: questions[id],
+        question: question,
         id: id,
-        user: loggedInUser
+        user: loggedInUser,
+        answered: question.optionOne.votes.includes(loggedInUser) ? OPTION_ONE : question.optionTwo.votes.includes(loggedInUser) ? OPTION_TWO : OPTION_NONE
     }
 }
 

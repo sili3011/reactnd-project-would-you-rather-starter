@@ -1,6 +1,7 @@
 /* eslint-disable no-case-declarations */
 import { RECEIVE_QUESTIONS } from '../actions/questions'
 import { ADD_ANSWER } from '../actions/questions'
+import { OPTION_ONE, OPTION_TWO } from '../utils/ENUMS'
 
 export default function questions(state = {}, action) {
     switch(action.type) {
@@ -11,7 +12,7 @@ export default function questions(state = {}, action) {
             const opOne = state[action.id].optionOne;
             const opTwo = state[action.id].optionTwo;
 
-            if(action.annswer === 1) {
+            if(action.annswer === OPTION_ONE) {
                 opOne.votes = state[action.id].optionOne.votes.concat([action.user]);
             } else {
                 opTwo.votes = state[action.id].optionTwo.votes.concat([action.user]);
@@ -19,8 +20,8 @@ export default function questions(state = {}, action) {
 
             return { ...state, [action.id]: {
                 ...state[action.id],
-                optionOne: action.answer === 1 ? opOne : state[action.id].optionOne,
-                optionTwo: action.answer === 2 ? opTwo : state[action.id].optionTwo
+                optionOne: action.answer === OPTION_ONE ? opOne : state[action.id].optionOne,
+                optionTwo: action.answer === OPTION_TWO ? opTwo : state[action.id].optionTwo
             }};
         default: return state
     }
