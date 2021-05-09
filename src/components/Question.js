@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Card, Alert, Row, Col, Form, Button, ProgressBar } from 'react-bootstrap'
-import { withRouter, Redirect } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { addAnswer } from '../actions/questions'
 import { OPTION_NONE, OPTION_ONE, OPTION_TWO } from '../utils/ENUMS'
 import { checkURL } from '../utils/helpers'
@@ -9,13 +9,13 @@ import { checkURL } from '../utils/helpers'
 class Question extends Component {
 
     state = {
-        selected: OPTION_NONE,
-        toHome: false
+        selected: OPTION_NONE
     }
 
     componentDidMount() {
         this.setState(() => ({
-            selected: this.props.answered
+            selected: this.props.answered,
+            showStats: false
         }));
     }
 
@@ -25,12 +25,12 @@ class Question extends Component {
         e.preventDefault();
         dispatch(addAnswer({id, answer: this.state.selected, user: user.id}));
         this.setState(() => ({
-            toHome: true
+            showStats: true
         }));
     }
 
     onSelect = (e, input) => {
-        if(this.props.answered === OPTION_NONE) {
+        if(this.props.answered === OPTION_NONE && !this.state.showStats) {
             this.setState(() => ({
                 selected: input
             }));
@@ -40,10 +40,6 @@ class Question extends Component {
     render() {
 
         const { question, id, users, answered } = this.props;
-
-        if(this.state.toHome === true) {
-            return <Redirect to='/' />
-        }
 
         return (
             <div>
@@ -70,7 +66,7 @@ class Question extends Component {
                                 </Card>
                             </Col>
                         </Row>
-                        { answered !== OPTION_NONE ? 
+                        { (answered !== OPTION_NONE) || this.state.showStats ? 
                         <ProgressBar style={{margin: '2rem 4rem'}}>
                             <ProgressBar variant='success' now={(question.optionOne.votes.length / (question.optionOne.votes.length + question.optionTwo.votes.length))*100} key={1} label={`A: ${((question.optionOne.votes.length / (question.optionOne.votes.length + question.optionTwo.votes.length))*100).toFixed(2)}% (${question.optionOne.votes.length})`} />
                             <ProgressBar variant='danger' now={(question.optionTwo.votes.length / (question.optionOne.votes.length + question.optionTwo.votes.length))*100} key={2} label={`B: ${((question.optionTwo.votes.length / (question.optionOne.votes.length + question.optionTwo.votes.length))*100).toFixed(2)}% (${question.optionTwo.votes.length})`}/>
