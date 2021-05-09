@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { loginUser } from '../actions/loggedInUser.js'
 import { Modal, Button, Alert } from 'react-bootstrap'
+import { Typeahead } from 'react-bootstrap-typeahead'
 
 class Login extends Component {
 
@@ -15,14 +16,6 @@ class Login extends Component {
         this.props.dispatch(loginUser(this.state.input));
     }
 
-    handleChange = (e) => {
-        const input = e.target.value;
-
-        this.setState(() => ({
-            input
-        }));
-    }
-
     onHide = () => {
         this.setState(() => ({
             showWarning: true
@@ -31,6 +24,7 @@ class Login extends Component {
 
     render() {
         const { input, showWarning } = this.state;
+        const userIds = Object.keys(this.props.users);
         return (
             <Modal show={this.props.showModal}
                 size="lg"
@@ -49,8 +43,15 @@ class Login extends Component {
                             Sorry! No escape! You gotta <b>login</b> first ;)
                         </Alert>
                     }
-                    <div>
-                        <input placeholder="Your user name" value={input} onChange={this.handleChange} style={{margin: '2em', width: '75%'}}/>
+                    <div style={{display: 'flex'}}>
+                        <Typeahead style={{marginRight: '2em', width: '75%'}} id='typeahead'
+                            onChange={(selected) => {
+                                this.setState(() => ({
+                                    input: selected
+                                }));
+                            }}
+                            options={[...userIds]}
+                        />
                         <Button variant="secondary" disabled={input === ''} onClick={this.handleLogin}>Login</Button>
                     </div>
                 </Modal.Body>
@@ -60,8 +61,9 @@ class Login extends Component {
 }
 
 // eslint-disable-next-line no-empty-pattern
-function mapStateToProps({}, {showModal}) {
+function mapStateToProps({users}, {showModal}) {
     return {
+        users: users,
         showModal: showModal
     }
 }
