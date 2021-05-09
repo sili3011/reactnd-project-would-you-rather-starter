@@ -1,6 +1,6 @@
 import { receiveUsers, addAnswer as addAnswerToUser } from './users'
 import { receiveQuestions, addAnswer as addAnswerToQuestion } from './questions'
-import { getInitialData } from '../utils/api'
+import { getInitialData, saveQuestionAnswer } from '../utils/api'
 
 export function handleInitialData() {
     return (dispatch) => {
@@ -14,8 +14,12 @@ export function handleInitialData() {
 
 export function addAnswer({id, answer, user}) {
     return (dispatch) => {
-        dispatch(addAnswerToQuestion({id, answer, user}));
-        dispatch(addAnswerToUser({id, answer, user}));
-        return;
+        return saveQuestionAnswer({user, id, answer}).catch((e) => {
+            console.warn('Error in saveQuestionAnswer: ', e);
+            alert('There was an error answering the question!')
+        }).then(() => {
+            dispatch(addAnswerToQuestion({id, answer, user}));
+            dispatch(addAnswerToUser({id, answer, user}));
+        });
     }
 }
