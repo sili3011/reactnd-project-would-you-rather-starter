@@ -4,7 +4,6 @@ import { Tabs, Tab, Card, Row, Col, ProgressBar } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 class Questions extends Component {
-
   renderList(list = [], answered = false) {
     return(
       <div>
@@ -27,8 +26,8 @@ class Questions extends Component {
                 { answered && 
                   <Card.Footer>
                     <ProgressBar>
-                      <ProgressBar variant='success' now={(q.optionOne.votes.length / (q.optionOne.votes.length + q.optionTwo.votes.length))*100} key={1} label='A' />
-                      <ProgressBar variant='danger' now={(q.optionTwo.votes.length / (q.optionOne.votes.length + q.optionTwo.votes.length))*100} key={2} label='B'/>
+                      <ProgressBar variant='success' now={(q.optionOne.votes.length / (q.optionOne.votes.length + q.optionTwo.votes.length))*100} key={1} label={`A: ${((q.optionOne.votes.length / (q.optionOne.votes.length + q.optionTwo.votes.length))*100).toFixed(2)}% (${q.optionOne.votes.length})`} />
+                      <ProgressBar variant='danger' now={(q.optionTwo.votes.length / (q.optionOne.votes.length + q.optionTwo.votes.length))*100} key={2} label={`B: ${((q.optionTwo.votes.length / (q.optionOne.votes.length + q.optionTwo.votes.length))*100).toFixed(2)}% (${q.optionTwo.votes.length})`}/>
                     </ProgressBar>
                   </Card.Footer>
                 } 

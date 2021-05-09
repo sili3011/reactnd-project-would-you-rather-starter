@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Card, Alert, Row, Col, Form, Button } from 'react-bootstrap'
+import { Card, Alert, Row, Col, Form, Button, ProgressBar } from 'react-bootstrap'
 import { withRouter, Redirect } from 'react-router-dom'
 import { addAnswer } from '../actions/questions'
 import { OPTION_NONE, OPTION_ONE, OPTION_TWO } from '../utils/ENUMS'
@@ -37,7 +37,7 @@ class Question extends Component {
 
     render() {
 
-        const { question, id, users } = this.props;
+        const { question, id, users, answered } = this.props;
 
         if(this.state.toHome === true) {
             return <Redirect to='/' />
@@ -54,7 +54,7 @@ class Question extends Component {
                         <Row style={{margin: '2rem'}}>
                             <Col onClick={(e) => this.onSelect(e, OPTION_ONE)}>
                                 <Card>
-                                    <Card.Body>
+                                    <Card.Body style={{backgroundColor: answered && this.state.selected === OPTION_ONE ? 'lightblue' : 'white'}}>
                                         <Form.Check label={question.optionOne.text} name="group1" type='radio' checked={this.state.selected === OPTION_ONE} readOnly/>
                                     </Card.Body>
                                 </Card>
@@ -62,12 +62,18 @@ class Question extends Component {
                             <Col md='auto' style={{display: 'flex', alignItems: 'center'}}>vs</Col>
                             <Col>
                                 <Card onClick={(e) => this.onSelect(e, OPTION_TWO)}>
-                                    <Card.Body>
+                                    <Card.Body style={{backgroundColor: answered && this.state.selected === OPTION_TWO ? 'lightblue' : 'white'}}>
                                         <Form.Check label={question.optionTwo.text} name="group1" type='radio' checked={this.state.selected === OPTION_TWO} readOnly/>
                                     </Card.Body>
                                 </Card>
                             </Col>
                         </Row>
+                        { answered && 
+                        <ProgressBar style={{margin: '2rem 4rem'}}>
+                            <ProgressBar variant='success' now={(question.optionOne.votes.length / (question.optionOne.votes.length + question.optionTwo.votes.length))*100} key={1} label={`A: ${((question.optionOne.votes.length / (question.optionOne.votes.length + question.optionTwo.votes.length))*100).toFixed(2)}% (${question.optionOne.votes.length})`} />
+                            <ProgressBar variant='danger' now={(question.optionTwo.votes.length / (question.optionOne.votes.length + question.optionTwo.votes.length))*100} key={2} label={`B: ${((question.optionTwo.votes.length / (question.optionOne.votes.length + question.optionTwo.votes.length))*100).toFixed(2)}% (${question.optionTwo.votes.length})`}/>
+                        </ProgressBar>
+                        } 
                         <div><Button style={{margin: '0 auto', display: 'block'}} onClick={this.onSubmit} disabled={this.state.selected === 0}>Submit</Button></div>
                     </div> :     
                     <Alert variant={'danger'}>
