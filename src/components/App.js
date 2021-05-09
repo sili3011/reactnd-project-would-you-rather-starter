@@ -6,6 +6,7 @@ import { handleInitialData } from '../actions/shared'
 import Questions from './Questions'
 import Question from './Question'
 import { BrowserRouter as Router, Route} from 'react-router-dom'
+import Leaderboard from './Leaderboard'
 
 class App extends Component {
 
@@ -24,6 +25,7 @@ class App extends Component {
               { loggedIn ?
                 <div>
                   <Route path='/' exact component={Questions} />
+                  <Route path='/leaderboard' exact component={Leaderboard} />
                   <Route path='/question/:id' component={Question} />
                 </div>
                 :

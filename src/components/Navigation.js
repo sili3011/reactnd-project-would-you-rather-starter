@@ -21,7 +21,7 @@ class Navigation extends Component{
                             <BsHouseDoor className='icon'/>
                             Home
                         </Link>
-                        <Link to="#leaderboard" className='nav nav-link align-icon-text'>
+                        <Link to="/leaderboard" className='nav nav-link align-icon-text'>
                             <BsReverseLayoutTextSidebarReverse className='icon'/>
                             Leaderboard
                         </Link>
