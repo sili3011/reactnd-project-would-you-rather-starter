@@ -1,5 +1,5 @@
 /* eslint-disable no-case-declarations */
-import { RECEIVE_QUESTIONS } from '../actions/questions'
+import { ADD_QUESTION, RECEIVE_QUESTIONS } from '../actions/questions'
 import { ADD_ANSWER } from '../actions/questions'
 import { OPTION_ONE, OPTION_TWO } from '../utils/ENUMS'
 
@@ -23,6 +23,8 @@ export default function questions(state = {}, action) {
                 optionOne: action.answer === OPTION_ONE ? opOne : state[action.id].optionOne,
                 optionTwo: action.answer === OPTION_TWO ? opTwo : state[action.id].optionTwo
             }};
+        case ADD_QUESTION:
+            return { ...state, [action.question.id]: action.question}
         default: return state
     }
 }

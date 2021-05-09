@@ -7,6 +7,7 @@ import Questions from './Questions'
 import Question from './Question'
 import { BrowserRouter as Router, Route} from 'react-router-dom'
 import Leaderboard from './Leaderboard'
+import NewQuestion from './NewQuestion'
 
 class App extends Component {
 
@@ -26,6 +27,7 @@ class App extends Component {
                 <div>
                   <Route path='/' exact component={Questions} />
                   <Route path='/leaderboard' exact component={Leaderboard} />
+                  <Route path='/new' exact component={NewQuestion} />
                   <Route path='/question/:id' component={Question} />
                 </div>
                 :

@@ -25,7 +25,7 @@ class Navigation extends Component{
                             <BsReverseLayoutTextSidebarReverse className='icon'/>
                             Leaderboard
                         </Link>
-                        <Link to="#new" className='nav nav-link align-icon-text'>
+                        <Link to="/new" className='nav nav-link align-icon-text'>
                             <BsPlusCircle className='icon'/>
                             New question
                         </Link>
