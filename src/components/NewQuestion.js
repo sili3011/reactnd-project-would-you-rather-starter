@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { Card, Row, Col, Button } from 'react-bootstrap'
 import { OPTION_ONE, OPTION_TWO } from '../utils/ENUMS'
-import { handleAddQuestion } from '../actions/questions'
+import { addQuestion } from '../actions/shared'
 
 class NewQuestion extends Component {
 
@@ -33,7 +33,7 @@ class NewQuestion extends Component {
         const {dispatch, user} = this.props;
         const {inputOne, inputTwo} = this.state;
         e.preventDefault();
-        dispatch(handleAddQuestion({optionOneText: inputOne, optionTwoText: inputTwo, author: user}));
+        dispatch(addQuestion({optionOneText: inputOne, optionTwoText: inputTwo, author: user}));
         this.setState(() => ({
             toHome: true
         }));

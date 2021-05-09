@@ -47,7 +47,7 @@ class Login extends Component {
                         <Typeahead style={{marginRight: '2em', width: '75%'}} id='typeahead'
                             onChange={(selected) => {
                                 this.setState(() => ({
-                                    input: selected
+                                    input: selected[0]
                                 }));
                             }}
                             options={[...userIds]}

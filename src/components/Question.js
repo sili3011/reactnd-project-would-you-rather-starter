@@ -30,9 +30,11 @@ class Question extends Component {
     }
 
     onSelect = (e, input) => {
-         this.setState(() => ({
-            selected: input
-        }));
+        if(this.props.answered === OPTION_NONE) {
+            this.setState(() => ({
+                selected: input
+            }));
+        }
     }
 
     render() {
@@ -68,13 +70,12 @@ class Question extends Component {
                                 </Card>
                             </Col>
                         </Row>
-                        { answered && 
+                        { answered !== OPTION_NONE ? 
                         <ProgressBar style={{margin: '2rem 4rem'}}>
                             <ProgressBar variant='success' now={(question.optionOne.votes.length / (question.optionOne.votes.length + question.optionTwo.votes.length))*100} key={1} label={`A: ${((question.optionOne.votes.length / (question.optionOne.votes.length + question.optionTwo.votes.length))*100).toFixed(2)}% (${question.optionOne.votes.length})`} />
                             <ProgressBar variant='danger' now={(question.optionTwo.votes.length / (question.optionOne.votes.length + question.optionTwo.votes.length))*100} key={2} label={`B: ${((question.optionTwo.votes.length / (question.optionOne.votes.length + question.optionTwo.votes.length))*100).toFixed(2)}% (${question.optionTwo.votes.length})`}/>
-                        </ProgressBar>
-                        } 
-                        <div><Button style={{margin: '0 auto', display: 'block'}} onClick={this.onSubmit} disabled={this.state.selected === 0}>Submit</Button></div>
+                        </ProgressBar> :
+                        <div><Button style={{margin: '0 auto', display: 'block'}} onClick={this.onSubmit} disabled={this.state.selected === 0}>Submit</Button></div>}
                     </div> :     
                     <Alert variant={'danger'}>
                         The question with id <b>{id}</b> doesnt exist yet! Maybe you can help formulate it?
@@ -92,7 +93,7 @@ function mapStateToProps({questions, loggedInUser, users}, ownProps) {
         id: id,
         user: users[loggedInUser],
         users: users,
-        answered: question.optionOne.votes.includes(loggedInUser) ? OPTION_ONE : question.optionTwo.votes.includes(loggedInUser) ? OPTION_TWO : OPTION_NONE
+        answered: question ? ((question.optionOne.votes.includes(loggedInUser) ? OPTION_ONE : question.optionTwo.votes.includes(loggedInUser) ? OPTION_TWO : OPTION_NONE)) : null
     }
 }
 
