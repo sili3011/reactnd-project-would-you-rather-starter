@@ -23,8 +23,8 @@ class App extends Component {
               <Login showModal={!loggedIn}/>
               { loggedIn ?
                 <div>
-                  <Route path='/' exact component={Questions}></Route>
-                  <Route path='/question/:id' component={Question}></Route>
+                  <Route path='/' exact component={Questions} />
+                  <Route path='/question/:id' component={Question} />
                 </div>
                 :
               null }
@@ -35,7 +35,6 @@ class App extends Component {
 }
 
 function mapStateToProps({loggedInUser}) {
-  console.log(loggedInUser)
   return {
     loggedIn: loggedInUser !== null
   }

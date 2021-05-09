@@ -3,6 +3,7 @@ import { Navbar, Nav } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { BsHouseDoor, BsPlusCircle, BsPeopleCircle, BsReverseLayoutTextSidebarReverse } from 'react-icons/bs'
 import { logoutUser } from '../actions/loggedInUser'
+import { Link } from 'react-router-dom'
 
 class Navigation extends Component{
     onLogout = () => {
@@ -13,21 +14,21 @@ class Navigation extends Component{
         const { loggedInUser } = this.props;
         return(
             <Navbar expand='lg' bg='dark' variant='dark' style={{padding: '0.5em 1em'}}>
-                <Navbar.Brand href='/'>Would you rather ... ?</Navbar.Brand>
+                <Navbar.Brand>Would you rather ... ?</Navbar.Brand>
                 <Navbar style={{width: '100%', padding: 0}}>
                     <Nav className='mr-auto'>
-                        <Nav.Link href="/" className='align-icon-text'>
+                        <Link to="/" className='nav nav-link align-icon-text'>
                             <BsHouseDoor className='icon'/>
                             Home
-                        </Nav.Link>
-                        <Nav.Link href="#leaderboard" className='align-icon-text'>
+                        </Link>
+                        <Link to="#leaderboard" className='nav nav-link align-icon-text'>
                             <BsReverseLayoutTextSidebarReverse className='icon'/>
                             Leaderboard
-                        </Nav.Link>
-                        <Nav.Link href="#new" className='align-icon-text'>
+                        </Link>
+                        <Link to="#new" className='nav nav-link align-icon-text'>
                             <BsPlusCircle className='icon'/>
                             New question
-                        </Nav.Link>
+                        </Link>
                     </Nav>
                     <Nav style={{position: 'absolute', right: '0'}}>
                         <Nav.Link className='align-icon-text' onClick={this.onLogout}>
