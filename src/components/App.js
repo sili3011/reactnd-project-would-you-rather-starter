@@ -1,11 +1,11 @@
 import React, { Component, Fragment } from 'react'
-import { BrowserRouter as Router } from 'react-router-dom'
 import { connect } from 'react-redux'
-import LoadingBar from 'react-redux-loading'
 import Login from './Login' 
 import Navigation from './Navigation'
 import { handleInitialData } from '../actions/shared'
 import Questions from './Questions'
+import Question from './Question'
+import { BrowserRouter as Router, Route} from 'react-router-dom'
 
 class App extends Component {
 
@@ -19,10 +19,15 @@ class App extends Component {
     return (
         <Router>
           <Fragment>
-            <LoadingBar />
               <Navigation />
-              <Login showModal={!this.props.loggedIn}/>
-              { loggedIn ? <Questions /> : null}
+              <Login showModal={!loggedIn}/>
+              { loggedIn ?
+                <div>
+                  <Route path='/' exact component={Questions}></Route>
+                  <Route path='/question/:id' component={Question}></Route>
+                </div>
+                :
+              null }
           </Fragment>
         </Router>
       );
@@ -30,6 +35,7 @@ class App extends Component {
 }
 
 function mapStateToProps({loggedInUser}) {
+  console.log(loggedInUser)
   return {
     loggedIn: loggedInUser !== null
   }

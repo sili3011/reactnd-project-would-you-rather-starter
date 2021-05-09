@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Tabs, Tab } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 
 class Questions extends Component {
   render() {
@@ -13,7 +14,7 @@ class Questions extends Component {
             <ul>
               { unanswered.map(q => (
               <li key={q.id}>
-                {q.id}
+                <Link to={`/question/${q.id}`}>{q.id}</Link>
               </li>)) }
             </ul>
           </Tab>
@@ -21,7 +22,7 @@ class Questions extends Component {
             <ul>
               { answered.map(q => (
               <li key={q.id}>
-                {q.id}
+                <Link to={`/question/${q.id}`}>{q.id}</Link>
               </li>)) }
             </ul>
           </Tab>

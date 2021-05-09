@@ -39,7 +39,7 @@ class Login extends Component {
                 onHide={this.onHide}
                 >
                 <Modal.Header>
-                    <Modal.Title id="contained-modal-title-vcenter">
+                    <Modal.Title>
                         <span>Welcome to <b>Would you rather ... ?</b> Who are you?</span>
                     </Modal.Title>
                 </Modal.Header>

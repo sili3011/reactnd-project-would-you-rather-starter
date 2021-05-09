@@ -16,7 +16,7 @@ class Navigation extends Component{
                 <Navbar.Brand href='/'>Would you rather ... ?</Navbar.Brand>
                 <Navbar style={{width: '100%', padding: 0}}>
                     <Nav className='mr-auto'>
-                        <Nav.Link href="#home" className='align-icon-text'>
+                        <Nav.Link href="/" className='align-icon-text'>
                             <BsHouseDoor className='icon'/>
                             Home
                         </Nav.Link>
